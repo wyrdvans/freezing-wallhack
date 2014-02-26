@@ -1,0 +1,77 @@
+<h2>Task</h2>
+
+<p>Create a reusable and deployable configuration for setting up LogStash, ElasticSearch, and Kibana that is able to injest HAProxy logs.</p>
+
+<p>The effort is broken down into three parts:</p>
+
+<ol>
+<li><p>Create a Chef/Puppet/etc. script (can be shef-solo or equivalent in Puppet, etc.) to install LogStash, ElasticSearch, and Kibana for log aggregation and indexing.</p>
+
+<ul>
+<li><a href="http://logstash.net/">LogStash</a></li>
+<li><a href="http://www.elasticsearch.org/">ElasticSearch</a></li>
+<li><a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a></li>
+</ul>
+
+<p>These can all live on a single server.</p>
+
+<p><strong>The server must be running Ubuntu.</strong></p></li>
+<li><p>Add support for parsing HAProxy log entrires, complete with URL extraction.</p>
+
+<p>A sample entry looks like this:</p>
+
+<p><code>
+Feb 18 12:52:25 api3.cloudmine.me haproxy[31165]: 108.242.22.84:4471 [18/Feb/2014:12:52:25.367] sslapi~ api-pool/API_6.1.2 196/0/2/58/256 200 425 - - ---- 186/186/5/0/0 0/0 {0|} {ec59b4bf-edbe} "GET /v1/app/245008ea0b494bdca5874e80e2bc1c69/search?q=%5B__class__%20%3D%20%22Message%22%2C%20dest%20%3D%20%22agent%22%2C%20custid%20%3D%20%22hlgx9azb%22%2C%20locid%20%3D%20%221%22%5D HTTP/1.1"
+</code></p>
+
+<p>Here are the important parts:</p>
+
+<p><strong>Entry date</strong>: <code>Feb 18 12:52:25</code><br>
+<strong>HAProxy server</strong>: <code>api3.cloudmine.me</code><br>
+<strong>(Ignore)</strong>: <code>haproxy[31165]:</code><br>
+<strong>Remote server/port</strong>: <code>108.242.22.84:4471</code><br>
+<strong>Accept Date</strong>: <code>[18/Feb/2014:12:52:25.367]</code><br>
+<strong>Front-end server</strong>: <code>sslapi~</code><br>
+<strong>Backend-cluster/server</strong>: <code>api-pool/API_6.1.2</code><br>
+<strong>Times (Tq/Tw/Tc/Tr/Tt)</strong>: <code>196/0/2/58/256 200 425</code><br>
+<strong>(Ignore)</strong>: <code>- - ----</code><br>
+<strong>(Ignore)</strong>: <code>186/186/5/0/0 0/0</code><br>
+<strong>Request Headers (content-length|)</strong>: <code>{0|}</code><br>
+<strong>Response Headers (request-id)</strong>: <code>{ec59b4bf-edbe}</code><br>
+<strong>HTTP Method</strong>: <code>"GET</code><br>
+<strong>HTTP URL</strong>: <code>/v1/app/245008ea0b494bdca5874e80e2bc1c69/search?q=%5B__class__%20%3D%20%22Message%22%2C%20dest%20%3D%20%22agent%22%2C%20custid%20%3D%20%22hlgx9azb%22%2C%20locid%20%3D%20%221%22%5D</code><br></p>
+
+<blockquote>
+  <p>The URL needs to be parsed to extract the:<br>
+     <strong>appid</strong>: <code>245008ea0b494bdca5874e80e2bc1c69</code><br>
+     <strong>action (URL after appid)</strong>: <code>/search</code><br>
+     <strong>query string (url-decoded, if possible)</strong>: <code>q=[__class__ = "Message", dest = "agent", custid = "hlgx9azb", locid = "1"]</code><br>
+     <strong>(Ignore)</strong>: <code>HTTP/1.1"</code><br></p>
+</blockquote>
+
+<p>More information on the HAProxy HTTP Log format:</p>
+
+<ul>
+<li><a href="http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#8.2.3">http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#8.2.3</a></li>
+</ul></li>
+<li><p>Design and Implement how logs will be sent to LogStash</p>
+
+<p>Once the system is configured, we need to send logs to it. There are several ways to do this, pick
+a good one to implement and discuss why you chose it.</p>
+
+<p>Assume that there's an HAProxy server that is sending its logs to a central syslog server if that helps.</p></li>
+</ol>
+
+<h2>Deliverables:</h2>
+
+<ol>
+<li><p>Chef/Puppet/etc cofiguration files with instructions on how to run or execute them, along with any dependencies. Assume that I have access to a vanilla server with ssh/sudo that I will use to test.</p></li>
+<li><p>If there was any custom configuration that needed to be done, including parse logic for the log file format above, and a discussion around the chosen log transport agent, include those as well.</p></li>
+<li><p>Also include a discussion on how to scale out this log tracking solution both for dealing with increasing amounts of data, and adding more logs from different sources (for example, application logs).</p></li>
+</ol>
+
+<h2>Timeline:</h2>
+
+<p>This project is not designed to consume a lot of time. Though there's no set limit on the amount time you should spend on it, let us know how long it took and which parts took the most time and whether that was expected or not.</p>
+
+<p>Questions or clarifications are welcome!</p>
