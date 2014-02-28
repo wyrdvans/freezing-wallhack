@@ -1,0 +1,97 @@
+{
+  "sources": {
+    "logstash": {
+      "locked_version": "0.7.6",
+      "git": "git://github.com/lusis/chef-logstash.git",
+      "ref": "b21850419ab73a2edb0e02b37df94d66e7fedae3"
+    },
+    "elasticsearch": {
+      "locked_version": "0.3.7",
+      "git": "git://github.com/elasticsearch/cookbook-elasticsearch.git",
+      "ref": "6b2f3aadbed7ea95f8ea264e597410482317733f"
+    },
+    "kibana": {
+      "locked_version": "1.2.0",
+      "git": "git://github.com/lusis/chef-kibana.git",
+      "ref": "d993f1a82e5b59c90f71b7905deba0ff1b257970"
+    },
+    "yum": {
+      "locked_version": "2.4.4"
+    },
+    "apt": {
+      "locked_version": "2.3.8"
+    },
+    "build-essential": {
+      "locked_version": "1.4.2"
+    },
+    "runit": {
+      "locked_version": "1.5.8"
+    },
+    "yum-epel": {
+      "locked_version": "0.3.4"
+    },
+    "git": {
+      "locked_version": "2.10.0"
+    },
+    "dmg": {
+      "locked_version": "2.2.0"
+    },
+    "windows": {
+      "locked_version": "1.30.0"
+    },
+    "chef_handler": {
+      "locked_version": "1.1.5"
+    },
+    "ant": {
+      "locked_version": "1.0.2"
+    },
+    "java": {
+      "locked_version": "1.19.2"
+    },
+    "ark": {
+      "locked_version": "0.5.0"
+    },
+    "logrotate": {
+      "locked_version": "1.5.0"
+    },
+    "rabbitmq": {
+      "locked_version": "2.4.2"
+    },
+    "erlang": {
+      "locked_version": "1.5.0"
+    },
+    "yum-erlang_solutions": {
+      "locked_version": "0.2.0"
+    },
+    "python": {
+      "locked_version": "1.4.6"
+    },
+    "xml": {
+      "locked_version": "1.2.0"
+    },
+    "monit": {
+      "locked_version": "0.7.1"
+    },
+    "nginx": {
+      "locked_version": "2.3.0"
+    },
+    "bluepill": {
+      "locked_version": "2.3.1"
+    },
+    "rsyslog": {
+      "locked_version": "1.11.0"
+    },
+    "ohai": {
+      "locked_version": "1.1.12"
+    },
+    "apache2": {
+      "locked_version": "1.9.0"
+    },
+    "iptables": {
+      "locked_version": "0.12.0"
+    },
+    "pacman": {
+      "locked_version": "1.1.1"
+    }
+  }
+}
