@@ -1,0 +1,9 @@
+HAPROXYCUSTOMREMOTESERVER %{IP:client_ip}:%{INT:client_port}
+HAPROXYCUSTOMBACKENDCLUSTERSERVER %{NOTSPACE:backend_name}/%{NOTSPACE:server_name}
+HAPROXYCUSTOMTIMES %{INT:time_request}/%{INT:time_queue}/%{INT:time_backend_connect}/%{INT:time_backend_response}/%{NOTSPACE:time_duration}
+HAPROXYCUSTOMREQUESTHEADERSCONTENTLENGTH \{%{HAPROXYCAPTUREDREQUESTHEADERS}\}
+HAPROXYCUSTOMRESPONSEHEADERSREQUESTID \{%{HAPROXYCAPTUREDRESPONSEHEADERS}\}
+HAPROXYCUSTOMURIPATHPARAM %{URIPATH}(?:%{URIPARAM})?
+HAPROXYCUSTOMHTTPURI (%{URIPROTO:http_proto}://)?(?:%{USER:http_user}(?::[^@]*)?@)?(?:%{URIHOST:http_host})?(?:%{HAPROXYCUSTOMURIPATHPARAM:http_request})?
+
+HAPROXYCUSTOM %{SYSLOGTIMESTAMP:entry_date} %{IPORHOST:haproxy_server} %{SYSLOGPROG}: %{HAPROXYCUSTOMREMOTESERVER:remote_server} \[%{HAPROXYDATE:accept_date}\] %{NOTSPACE:frontend_server} %{HAPROXYCUSTOMBACKENDCLUSTERSERVER:backend_cluster_server} %{HAPROXYCUSTOMTIMES:times} %{INT:http_status_code} %{NOTSPACE:bytes_read} %{DATA:captured_request_cookie} %{DATA:captured_response_cookie} %{NOTSPACE:termination_state} %{INT:actconn}/%{INT:feconn}/%{INT:beconn}/%{INT:srvconn}/%{NOTSPACE:retries} %{INT:srv_queue}/%{INT:backend_queue} (%{HAPROXYCUSTOMREQUESTHEADERSCONTENTLENGTH:request_headers_content_length})?( )?(%{HAPROXYCUSTOMRESPONSEHEADERSREQUESTID:response_headers_request_id})?( )?"(<BADREQ>|(%{WORD:http_method} %{HAPROXYCUSTOMHTTPURI:http_uri}( HTTP/%{NUMBER:http_version})?))?"
